@@ -1,0 +1,30 @@
+li $t5,-1             		# i = -1
+	li $t6,-1             		# j = -1
+	la $t1,($sp)                # $t1 = ($sp)
+	
+	mul $t0,$t9,$t9             # temp = (m/2)*(m/2)
+	mul $t0,$t0,4               # temp = 4*(m/2)*(m/2)  = m*m
+	addu $s1,$t1,$t0            # $s1 = $sp + m*m (start address of A11)
+	move $s0,$t2				# $s0 = address of A
+	b loop1A11
+labelA11:
+    mul $t7,$t9,4
+    addu $s0,$s0,$t7			# s0 = s0 + (m/2)
+loop1A11:	
+	addu $t5,$t5,1        		# i++;
+	bge $t5,$t9,endloopsA11 	# if (i>=m/2) goto endloopsA11
+    li $t6,-1	          		# initialization : j = -1
+loop2A11:
+    addu $t6,$t6,1        		# j++
+	bge $t6,$t9,labelA11    	# if(j>=m/2) goto loop1m (and start next iteration of outerloop)
+	
+	
+	lw $s7,($s0)                # $s9 = M[A+4((m/2)*i+j)]
+	sw $s7,($s1)				# M[$sp + m*m + 4((m/2)*i+j)] = M[A+4((m/2)*i+j)]
+	
+	addu $s0,$s0,4
+	addu $s1,$s1,4
+	
+	b loop2A11	
+	
+endloopsA11: 
