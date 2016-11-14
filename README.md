@@ -1,8 +1,4 @@
-# hello-world
-mcjkcb chb 
+# Matrix Multiplication
 
-
-
-what's up dus\de jbvb then what it is for ?? :p
 
 
